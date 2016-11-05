@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+             android:background="@color/colorWhite"
+    >
+
+    <!-- this view reveals when swipe right -->
+    <RelativeLayout
+        android:tag="reveal-right"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@android:drawable/ic_btn_speak_now"/>
+    </RelativeLayout>
+
+
+    <!-- this view reveals when swipe left -->
+    <RelativeLayout
+        android:tag="reveal-left"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:tint="@color/colorPrimary"
+            android:src="@android:drawable/ic_menu_delete"/>
+    </RelativeLayout>
+
+
+    <!-- this is the item front view -->
+    <RelativeLayout
+        android:tag="front"
+        android:background="@drawable/row_drawable"
+        android:layout_margin="@dimen/row_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/row_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/row_account_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image"
+            android:layout_below="@+id/row_category_name"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/row_detail"
+            android:layout_below="@+id/row_account_name"
+            android:layout_toRightOf="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/row_date"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/row_amount"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/row_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

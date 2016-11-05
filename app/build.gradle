@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "monepla.co.jp.kkb"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+
+    }
+}
+repositories {
+
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'co.dift.ui.swipetoaction:library:1.1'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.wdullaer:materialdatetimepicker:2.4.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    compile 'com.jpardogo.materialtabstrip:library:1.0.6'
+    compile 'com.jakewharton:butterknife:6.1.0'
+    compile files('/Users/user/Documents/KKB/libs/NCMB.jar')
+}

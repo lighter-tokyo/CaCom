@@ -1,0 +1,70 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="monepla.co.jp.kkb.View.OtherView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_text_view_1"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_text_view_2"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_margin="@dimen/content_margin"
+            android:id="@+id/setting_text_input1"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/setting_edit_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:ems="10" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_margin="@dimen/content_margin"
+            android:id="@+id/setting_text_input2"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/setting_edit_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:ems="10" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_switch1"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/setting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            android:padding="4dp"
+            android:textColor="@color/colorWhite"
+            android:background="#1E88E5"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</FrameLayout>

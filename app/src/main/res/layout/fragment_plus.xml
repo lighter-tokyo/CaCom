@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="monepla.co.jp.kkb.View.PlusFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_margin="@dimen/content_margin"
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/plus_calc_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="32sp"
+            android:focusable="false"
+            android:inputType="number"
+            android:ems="10"
+            android:hint="@string/plus_calc_number"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/plus_in_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:gravity="end"
+            android:textSize="12sp"
+            android:focusable="false"
+            android:inputType="number"
+            android:ems="10"
+            android:enabled="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/plus_output"
+                android:background="@color/colorAccent"
+                android:layout_weight="1"
+                android:text="@string/output"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/plus_input"
+                android:background="@color/colorWhite"
+                android:layout_weight="1"
+                android:text="@string/input"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/plus_move"
+                android:background="@color/colorWhite"
+                android:layout_weight="1"
+                android:text="@string/move"/>
+        </LinearLayout>
+        <include
+            android:id="@+id/plus_calc_view"
+            layout="@layout/calc_view"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

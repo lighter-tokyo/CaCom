@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">KKB</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">設定</string>
+    <string name="deposits_withdrawals">入出金履歴</string>
+    <string name="account_register">口座登録</string>
+    <string name="account_history">口座履歴</string>
+    <string name="login_mail_hint">メールアドレス</string>
+    <string name="login_user_name_hint">ユーザー名</string>
+    <string name="plus_calc_number">入出金額</string>
+    <string name="change_pre_pass">現在のパスワード</string>
+    <string name="change_new_pass">新しいパスワード</string>
+    <string name="login_pass_hint">パスワード</string>
+    <string name="login_pass_confirm_hint">パスワード確認</string>
+    <string name="login_button">ログイン</string>
+    <string name="login_register_button">新規登録</string>
+    <string name="register_user_name">ユーザ名(半角英数字)\n※同じユーザ名はご利用できません</string>
+    <string name="input">入金</string>
+    <string name="output">出金</string>
+    <string name="move">振替</string>
+    <string name="detail">詳細</string>
+    <string name="other_about">このアプリについて</string>
+    <string name="other_fag">FAQ</string>
+    <string name="other_pass_code">パスコード設定</string>
+    <string name="other_push">プッシュ通知</string>
+    <string name="other_mail_address_change">メールアドレス変更</string>
+    <string name="other_password_change">パスワード変更</string>
+    <string name="other_forget_password">パスワード再発行</string>
+    <string name="other_quit">退会</string>
+    <string name="other_term">利用規約</string>
+    <string name="other_version">バージョン</string>
+    <string name="other_logout">ログアウト</string>
+    <string name="other">その他</string>
+    <string name="update">更新</string>
+    <string name="send">送信</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nifty_api_key">851d7db3428e46b661a1d6ffc632708712bc098b198a6d194bd7a8e336c8feda</string>
+    <string name="nifty_client_key">dc312e991ba8ba9480dde8b983f39498438748eab942d6cfa055864c0b9265b4</string>
+
+</resources>
