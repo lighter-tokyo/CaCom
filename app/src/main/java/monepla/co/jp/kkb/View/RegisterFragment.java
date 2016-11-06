@@ -192,10 +192,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             if (e == null) {
                 List<NCMBObject> accountList = new ArrayList<> ();
                 for (NCMBObject account : list) {
-                    account.setObjectId (null);
-                    account.put (Account.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    NCMBObject newAccount = new NCMBObject(Account.TABLE_NAME);
+                    newAccount.setObjectId (null);
+                    newAccount.put (Account.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    newAccount.put(Account.COL_ACCOUNT_NAME,account.getString(Account.COL_ACCOUNT_NAME));
+                    newAccount.put(Account.COL_ACCOUNT_DIV,account.getInt(Account.COL_ACCOUNT_DIV));
+                    newAccount.put(Account.COL_DEL_FLG,account.getBoolean(Account.COL_DEL_FLG));
                     try {
-                        account.save ();
+                        newAccount.save ();
                     } catch (NCMBException e1) {
                         accountList.add (account);
                         e1.printStackTrace ();
@@ -213,10 +217,13 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             if (e == null) {
                 JSONArray jsonAry = new JSONArray ();
                 for (NCMBObject category : list) {
-                    category.setObjectId (null);
-                    category.put (Category.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    NCMBObject newCategory = new NCMBObject(Category.TABLE_NAME);
+                    newCategory.put (Category.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    newCategory.put(Category.COL_CATEGORY_NAME,category.getString(Category.COL_CATEGORY_NAME));
+                    newCategory.put(Category.COL_CASH_DIV,category.getInt(Category.COL_CASH_DIV));
+                    newCategory.put(Category.COL_DEL_FLG,category.getBoolean(Category.COL_DEL_FLG));
                     try {
-                        category.save ();
+                        newCategory.save ();
                     } catch (NCMBException e1) {
                         jsonAry.put (category.getObjectId ());
                         e1.printStackTrace ();

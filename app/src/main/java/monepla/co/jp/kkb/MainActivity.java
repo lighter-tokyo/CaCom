@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(BaseFragment param) {
         frameLayout.setVisibility (View.VISIBLE);
-        if (param == null) return;
+        if (param == null || param.getTag () == null) return;
         switch (param.getTag ()) {
             case HomeListView.TAG:
                 setToolbarTitle (R.string.deposits_withdrawals);
@@ -305,6 +305,9 @@ public class MainActivity extends AppCompatActivity
                 frameLayout.addView (homeListView);
                 if (textView != null) textView.setText (userList.user_name);
                 getCategory ();
+                getSupportActionBar ().setHomeButtonEnabled (false);
+                getSupportActionBar ().setDisplayHomeAsUpEnabled (false);
+                actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
                 return;
             }
         }
@@ -353,7 +356,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void closeDrawer() {
-
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        drawer.getDrawerLockMode (Gravity.LEFT);
+        frameLayout.setVisibility (View.GONE);
 
     }
 
@@ -387,6 +392,7 @@ public class MainActivity extends AppCompatActivity
         /** カテゴリ取得 */
         NCMBQuery<NCMBObject> query = getQuery(this,Category.TABLE_NAME);
         query.whereEqualTo (Category.COL_DEL_FLG,false);
+        query.whereEqualTo(Category.COL_USER_ID,application.getLoginUser().objectId);
         queue.put (query);
         /** 口座取得 */
         query = getQuery (this,Account.TABLE_NAME);

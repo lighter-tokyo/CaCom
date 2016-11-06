@@ -2,12 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
     tools:context=".View.LoginFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="@dimen/content_margin"
+            android:textSize="24sp"
+            android:text="@string/login_button"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login_mail_text_input"

@@ -115,7 +115,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             case R.id.login_register_button:
                 /** 新規登録画面 */
                 LogFnc.Logging (LogFnc.INFO,"新規登録画面",LogFnc.current ());
-                getFragmentManager().beginTransaction().addToBackStack(getClass().getSimpleName()).replace(R.id.fragment_view,RegisterFragment.newInstance()).commit();
+                getFragmentManager().beginTransaction().addToBackStack(getClass().getSimpleName()).replace(R.id.fragment_no_toolbar,RegisterFragment.newInstance()).commit();
                 break;
             case R.id.login_button:
                 /** ログインチェック */
@@ -168,15 +168,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             LogFnc.Logging (LogFnc.DEBUG,loginUser.objectId,LogFnc.current ());
             editor.apply ();
             NCMBQuery<NCMBObject> query = new NCMBQuery<> (Account.TABLE_NAME);
-            query.whereEqualTo (Account.COL_USER_ID,null);
-            NCMBQuery<NCMBObject> query1 = new NCMBQuery<> (Account.TABLE_NAME);
-            query1.whereEqualTo (Account.COL_USER_ID,loginUser.objectId);
-            List<NCMBQuery<NCMBObject>> queries = new ArrayList<> ();
-            queries.add (query);
-            queries.add (query1);
-            NCMBQuery mainQuery = new NCMBQuery<> (Account.TABLE_NAME);
-            mainQuery.or (queries);
-            mainQuery.findInBackground(this);
+            query.whereEqualTo (Account.COL_USER_ID,loginUser.objectId);
+            query.findInBackground(this);
 
         } else {
             mailEditText.setError (loginUser.getErr ().getCode ());
