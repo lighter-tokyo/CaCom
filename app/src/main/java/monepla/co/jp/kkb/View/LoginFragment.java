@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nifty.cloud.mb.core.DoneCallback;
+import com.nifty.cloud.mb.core.FindCallback;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBQuery;
@@ -39,7 +41,7 @@ import monepla.co.jp.kkb.Utils.LogFnc;
  * @see android.view.View.OnClickListener
  * @see LoginController
  */
-public class LoginFragment extends BaseFragment implements View.OnClickListener,LoginController.LoginCallback{
+public class LoginFragment extends BaseFragment implements View.OnClickListener,LoginController.LoginCallback,FindCallback<NCMBObject> {
 
     /** メールアドレス */
     private AppCompatEditText mailEditText;
@@ -113,7 +115,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             case R.id.login_register_button:
                 /** 新規登録画面 */
                 LogFnc.Logging (LogFnc.INFO,"新規登録画面",LogFnc.current ());
-                getFragmentManager().beginTransaction().replace(R.id.fragment_view,RegisterFragment.newInstance()).commit();
+                getFragmentManager().beginTransaction().addToBackStack(getClass().getSimpleName()).replace(R.id.fragment_view,RegisterFragment.newInstance()).commit();
                 break;
             case R.id.login_button:
                 /** ログインチェック */
@@ -174,18 +176,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             queries.add (query1);
             NCMBQuery mainQuery = new NCMBQuery<> (Account.TABLE_NAME);
             mainQuery.or (queries);
-            try {
-                List<NCMBObject> ncmbObjects = mainQuery.find ();
-                for (NCMBObject object : ncmbObjects) {
-                    Account account = new Account ();
-                    account.getToAppModel (Account.class,object);
-                }
+            mainQuery.findInBackground(this);
 
-            } catch (NCMBException e) {
-                e.printStackTrace ();
-                LogFnc.Logging (LogFnc.ERROR,e.getMessage (),LogFnc.current ());
-            }
-//            getFragmentManager ().beginTransaction ().replace (R.id.fragment_view,HomeListFragment.newInstance ()).commit ();
         } else {
             mailEditText.setError (loginUser.getErr ().getCode ());
             passEditText.setError (loginUser.getErr ().getMessage ());
@@ -195,5 +187,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void RegisterDone(String msg) {
 
+    }
+
+
+    @Override
+    public void done(List<NCMBObject> list, NCMBException e) {
+        for (NCMBObject object : list) {
+            Account account = new Account ();
+            account.getToAppModel (Account.class,object);
+        }
+        getFragmentManager().beginTransaction().remove(this).commit();
+        onButtonPressed(this);
+        activityListener.logout();
+        onDetach();
     }
 }

@@ -54,20 +54,19 @@
         android:id="@+id/spinner_liner"
         android:layout_below="@+id/date_picker_text"
         android:orientation="horizontal">
-        <android.support.v7.widget.AppCompatSpinner
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/category_origin">
+            android:layout_height="wrap_content"
+            android:id="@+id/category_origin"/>
 
-        </android.support.v7.widget.AppCompatSpinner>
-        <android.support.v7.widget.AppCompatSpinner
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/category_category">
 
-        </android.support.v7.widget.AppCompatSpinner>
+        </TextView>
     </LinearLayout>
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/category_button"

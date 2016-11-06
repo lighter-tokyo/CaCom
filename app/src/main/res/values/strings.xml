@@ -48,6 +48,9 @@
     <string name="account_securities">証券</string>
     <string name="account_credit">クレジット</string>
     <string name="account_other">その他</string>
+    <string name="transfer_source">振替元</string>
+    <string name="transfer_destination">振替先</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nifty_api_key">851d7db3428e46b661a1d6ffc632708712bc098b198a6d194bd7a8e336c8feda</string>

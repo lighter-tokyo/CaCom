@@ -32,4 +32,6 @@ public interface ActivityListener {
     void closeDrawer();
 
     void addStackFragment(BaseFragment fragment);
+
+    void logout();
 }

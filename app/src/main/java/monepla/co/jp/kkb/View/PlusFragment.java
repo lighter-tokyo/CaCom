@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import monepla.co.jp.kkb.Common.BaseFragment;
 import monepla.co.jp.kkb.Constract.CommonConst;
 import monepla.co.jp.kkb.Controller.CalcView;
@@ -27,9 +29,12 @@ import monepla.co.jp.kkb.Utils.LogFnc;
 public class PlusFragment extends BaseFragment implements CalcView.OnCalcListener ,View.OnClickListener{
     private static PlusFragment fragment = new PlusFragment ();
 
-    private CalcView calcView;
-    private AppCompatEditText appCompatEditText;
-    private AppCompatEditText appCompatEditTextIn;
+    @InjectView (R.id.plus_calc_view)
+    CalcView calcView;
+    @InjectView (R.id.plus_calc_text_input)
+    AppCompatEditText appCompatEditText;
+    @InjectView (R.id.plus_in_text_input)
+    AppCompatEditText appCompatEditTextIn;
     private int div = R.id.plus_output;
     private View contentView;
 
@@ -67,9 +72,7 @@ public class PlusFragment extends BaseFragment implements CalcView.OnCalcListene
         LogFnc.LogTraceStart (LogFnc.current ());
         TAG = getClass ().getSimpleName ();
         contentView = inflater.inflate (R.layout.fragment_plus, container, false);
-        calcView = (CalcView) contentView.findViewById (R.id.plus_calc_view);
-        appCompatEditText = (AppCompatEditText) contentView.findViewById (R.id.plus_calc_text_input);
-        appCompatEditTextIn = (AppCompatEditText) contentView.findViewById (R.id.plus_in_text_input);
+        ButterKnife.inject (this,contentView);
 
         contentView.findViewById (R.id.plus_output).setOnClickListener (this);
         contentView.findViewById (R.id.plus_input).setOnClickListener (this);

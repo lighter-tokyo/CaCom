@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,10 @@ import butterknife.InjectView;
 import monepla.co.jp.kkb.Constract.CommonConst;
 import monepla.co.jp.kkb.Controller.OtherController;
 import monepla.co.jp.kkb.Interface.ActivityListener;
+import monepla.co.jp.kkb.Model.Account;
+import monepla.co.jp.kkb.Model.Cash;
+import monepla.co.jp.kkb.Model.Category;
+import monepla.co.jp.kkb.Model.User;
 import monepla.co.jp.kkb.R;
 import monepla.co.jp.kkb.Utils.KkbApplication;
 import monepla.co.jp.kkb.Utils.LogFnc;
@@ -91,8 +98,13 @@ public class OtherView extends LinearLayout implements OtherController.OnOtherCl
                 }
                 editor.apply ();
             }
-            context.deleteDatabase ("/data/data/monepla.co.jp.kkb/databases/kkb.db");
-            activityListener.addStackFragment(LoginFragment.newInstance ());
+
+            new Delete().from(User.class).execute();
+            new Delete().from(Account.class).execute();
+            new Delete().from(Category.class).execute();
+            new Delete().from(Cash.class).execute();
+
+            activityListener.logout();
             return;
         }
 //        if (CommonConst.OtherItems.PASSWORD_FORGET.getItems () == item && TextUtils.isEmpty (application.getLoginUser ().mailAddress)) {

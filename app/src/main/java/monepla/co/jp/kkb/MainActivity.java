@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBQuery;
@@ -25,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import monepla.co.jp.kkb.Common.BaseFragment;
 import monepla.co.jp.kkb.Constract.CommonConst;
 import monepla.co.jp.kkb.Interface.ActivityListener;
@@ -268,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(BaseFragment param) {
         frameLayout.setVisibility (View.VISIBLE);
-
+        if (param == null) return;
         switch (param.getTag ()) {
             case HomeListView.TAG:
                 setToolbarTitle (R.string.deposits_withdrawals);
@@ -292,18 +296,19 @@ public class MainActivity extends AppCompatActivity
         LogFnc.LogTraceStart(LogFnc.current());
         /** ユーザリストを取得 */
         String user_id = CommonUtils.getUpdateShare (this,Cash.COL_USER_ID);
-
-        User userList = new Select ().from (User.class).where (User.COL_OBJECT_ID + " = ?",user_id).executeSingle ();
-        if (userList != null && userList.objectId.equals (user_id)) {
-            application.setLoginUser (userList);
-            homeListView = new HomeListView (this);
-            homeListView.invalidateTextPaintAndMeasurements ();
-            frameLayout.addView (homeListView);
-            if (textView != null) textView.setText (userList.user_name);
-            getCategory ();
-            return;
+        if (!TextUtils.isEmpty (user_id)) {
+            User userList = new Select ().from (User.class).where (User.COL_OBJECT_ID + " = ?", user_id).executeSingle ();
+            if (!TextUtils.isEmpty (user_id) && userList != null && userList.objectId.equals (user_id)) {
+                application.setLoginUser (userList);
+                homeListView = new HomeListView (this);
+                homeListView.invalidateTextPaintAndMeasurements ();
+                frameLayout.addView (homeListView);
+                if (textView != null) textView.setText (userList.user_name);
+                getCategory ();
+                return;
+            }
         }
-
+        frameLayout.setVisibility (View.INVISIBLE);
         getSupportFragmentManager ().beginTransaction ().add (R.id.fragment_no_toolbar, LoginFragment.newInstance (),HomeListView.TAG).commit ();
         LogFnc.LogTraceEnd(LogFnc.current());
     }
@@ -439,5 +444,12 @@ public class MainActivity extends AppCompatActivity
             }
         }
         LogFnc.LogTraceEnd (LogFnc.current ());
+    }
+
+    @Override
+    public void logout() {
+        frameLayout.removeAllViews ();
+        frameLayout.setVisibility(View.INVISIBLE);
+        login();
     }
 }

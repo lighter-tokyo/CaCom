@@ -225,7 +225,11 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 SharedPreferences preferences = getContext ().getSharedPreferences (CommonConst.PREF_UPDATE,Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit ();
                 editor.putString (Category.COL_OBJECT_ID,jsonAry.toString ());
-                getFragmentManager ().beginTransaction ().replace (R.id.fragment_view,LoginFragment.newInstance ()).commit ();
+                editor.apply();
+                getFragmentManager().beginTransaction().remove(RegisterFragment.this).commit();
+                onButtonPressed(RegisterFragment.this);
+                activityListener.logout();
+                onDetach();
             }
         }
     };

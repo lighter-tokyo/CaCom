@@ -38,26 +38,36 @@ public class ListDialogFragment extends DialogFragment implements AdapterView.On
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ListView listView = new ListView (application);
-
-/** 口座区分セット */
-        if ( getArguments ().getString (KEY1).equals (getString (R.string.kind))) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        /** 口座区分セット */
+        String division = getArguments ().getString (KEY1);
+        if (division == null) {
+            return builder.create ();
+        }
+        if ( division.equals (getString (R.string.kind))) {
             for (CommonConst.AccountDiv accountDiv : CommonConst.AccountDiv.values ()) {
                 spinnerCommonList.add (new SpinnerCommon (String.valueOf (accountDiv.getId ()), getString (accountDiv.getStr ())));
             }
-        } else if (getArguments ().getString (KEY1).equals (getString (R.string.account))) {
-            List<Category> categoryList = CommonUtils.getCategoryList (0);
-            for (int i = 0;i < categoryList.size (); i++) {
-                spinnerCommonList.add (new SpinnerCommon (categoryList.get (i).objectId,categoryList.get (i).category_name));
-            }
-        } else {
+        } else if (division.equals (getString (R.string.account))) {
+
             List<Account> accountList = application.getLoginUser ().getAccountList ();
             for (int i = 0;i < accountList.size ();i++) {
                 spinnerCommonList.add (new SpinnerCommon (accountList.get (i).objectId,accountList.get (i).accountName));
             }
+        } else if (division.equals (getString (R.string.input))) {
+            List<Category> categoryList = CommonUtils.getCategoryList (1);
+            for (int i = 0;i < categoryList.size (); i++) {
+                spinnerCommonList.add (new SpinnerCommon (categoryList.get (i).objectId,categoryList.get (i).category_name));
+            }
+        } else {
+            List<Category> categoryList = CommonUtils.getCategoryList (0);
+            for (int i = 0;i < categoryList.size (); i++) {
+                spinnerCommonList.add (new SpinnerCommon (categoryList.get (i).objectId,categoryList.get (i).category_name));
+            }
         }
 
         categoryController = new CategoryController (getContext (),spinnerCommonList);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         listView.setOnItemClickListener (this);
         listView.setAdapter (categoryController);
         builder.setMessage(getArguments ().getString (KEY1))
