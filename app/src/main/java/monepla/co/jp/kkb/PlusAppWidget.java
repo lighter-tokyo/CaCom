@@ -1,8 +1,12 @@
 package monepla.co.jp.kkb;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.AppCompatEditText;
 import android.widget.RemoteViews;
 
 import monepla.co.jp.kkb.Controller.CalcView;
@@ -12,7 +16,7 @@ import monepla.co.jp.kkb.Controller.CalcView;
  */
 public class PlusAppWidget extends AppWidgetProvider {
 
-    private CalcView calcView;
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
@@ -43,5 +47,23 @@ public class PlusAppWidget extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    // アップデート
+    public static void pushWidgetUpdate(Context context, RemoteViews remoteViews) {
+        ComponentName myWidget = new ComponentName(context, PlusAppWidget.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        manager.updateAppWidget(myWidget, remoteViews);
+    }
+
+    public static PendingIntent clickButton(Context context) {
+        // クリック回数を増加
+
+
+        // initiate widget update request
+        Intent intent = new Intent();
+        intent.setAction("UPDATE_WIDGET");
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
 }
 

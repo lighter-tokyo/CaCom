@@ -388,5 +388,6 @@ public class CategoryFragment extends BaseFragment
         FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt (0);
         fm.popBackStack (entry.getId (), POP_BACK_STACK_INCLUSIVE);
 
+
     }
 }

@@ -104,6 +104,7 @@ public class PlusFragment extends BaseFragment implements CalcView.OnCalcListene
         calcView.setTextView (appCompatEditText,appCompatEditTextIn);
         calcView.setOnCalcListener (this);
         calcView.setAppCompatButton ("次へ");
+        activityListener.closeDrawer();
 
         LogFnc.LogTraceEnd (LogFnc.current ());
         return contentView;

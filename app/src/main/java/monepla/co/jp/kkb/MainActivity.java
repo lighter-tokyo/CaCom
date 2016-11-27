@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -118,7 +119,6 @@ public class MainActivity extends AppCompatActivity
             drawer.setDrawerListener(actionBarDrawerToggle);
             drawer.closeDrawer (Gravity.LEFT);
         }
-
         actionBarDrawerToggle.syncState();
         actionBarDrawerToggle.setToolbarNavigationClickListener (this);
         /** ナビゲーションドロワー設定 */
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         /** プログレス設定 */
-        progressDialog = new ProgressDialog(this,
-                R.style.AppTheme_PopupOverlay);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         /** カテゴリー取得 */
 
@@ -159,13 +159,13 @@ public class MainActivity extends AppCompatActivity
             /** ドロワーが開いていたら閉じる */
             LogFnc.Logging(LogFnc.DEBUG,"ドロワー閉じる",LogFnc.current());
             drawer.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager ().getBackStackEntryCount () == 0){
-            LogFnc.Logging(LogFnc.DEBUG,"",LogFnc.current());
-            frameLayout.setVisibility (View.VISIBLE);
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            super.onBackPressed();
         } else {
-            super.onBackPressed ();
+            LogFnc.Logging(LogFnc.DEBUG,"aaa",LogFnc.current());
+            frameLayout.setVisibility (View.VISIBLE);
+            actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+            homeListView.postInvalidate();
+            super.onBackPressed();
         }
         LogFnc.LogTraceEnd(LogFnc.current());
     }
@@ -339,9 +339,8 @@ public class MainActivity extends AppCompatActivity
     public void showProgress(int title) {
         LogFnc.LogTraceStart(LogFnc.current());
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(getString (title));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
+
         LogFnc.LogTraceEnd(LogFnc.current());
     }
 
@@ -357,13 +356,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showDrawer() {
-
+        drawer.setDrawerLockMode (DrawerLayout.LOCK_MODE_UNDEFINED);
     }
 
     @Override
     public void closeDrawer() {
         actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        drawer.getDrawerLockMode (Gravity.LEFT);
+        drawer.setDrawerLockMode (DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         frameLayout.setVisibility (View.GONE);
 
     }

@@ -7,6 +7,7 @@
     <string name="user_register">ユーザー登録</string>
     <string name="action_settings">設定</string>
     <string name="deposits_withdrawals">入出金履歴</string>
+    <string name="wait">処理中</string>
     <string name="account">口座</string>
     <string name="account_register">口座登録</string>
     <string name="account_history">口座履歴</string>

@@ -64,6 +64,10 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/plus_app_widget_info" />
         </receiver>
+        <receiver
+            android:name=".WidgetReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>
