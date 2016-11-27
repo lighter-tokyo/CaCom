@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="monepla.co.jp.kkb">
+    package="monepla.co.jp.kkb">
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".Utils.KkbApplication"
@@ -15,13 +16,13 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="kkb.db"/>
+            android:value="kkb.db" />
         <meta-data
             android:name="DB_VERSION"
-            android:value="1"/>
+            android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="monepla.co.jp.kkb.Model.Cash,monepla.co.jp.kkb.Model.Category,monepla.co.jp.kkb.Model.User,monepla.co.jp.kkb.Model.Account"/>
+            android:value="monepla.co.jp.kkb.Model.Cash,monepla.co.jp.kkb.Model.Category,monepla.co.jp.kkb.Model.User,monepla.co.jp.kkb.Model.Account" />
 
         <activity
             android:name=".MainActivity"
@@ -29,17 +30,40 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- プッシュ通知タップ時に起動するActivityの設定 -->
+            <meta-data
+                android:name="openPushStartActivity"
+                android:value=".MainActivity" />
+
+            <!-- 通知エリアに表示されるアイコンの設定 -->
+            <meta-data
+                android:name="smallIcon"
+                android:resource="@mipmap/icon" />
+
+            <!-- 通知エリアにプッシュ通知を複数表示する設定　0:最新のみ表示 , 1:複数表示 -->
+            <meta-data
+                android:name="notificationOverlap"
+                android:value="0" />
+
+            <!-- カスタムダイアログプッシュを利用する場合のみ背景画像の設定 -->
+            <meta-data
+                android:name="dialogPushBackgroundImage"
+                android:resource="@color/colorWhite" />
         </activity>
 
-        <service
-            android:name=".Utils.RegistrationIntentService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
+        <receiver android:name=".PlusAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/plus_app_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

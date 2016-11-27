@@ -40,8 +40,6 @@ public class LoginController implements DoneCallback,LoginCallback{
         } else {
             loginCallback.RegisterDone (null);
         }
-
-        activityListener.closeProgress ();
         LogFnc.LogTraceEnd(LogFnc.current());
     }
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.activeandroid.query.Select;
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.FindCallback;
 import com.nifty.cloud.mb.core.NCMBException;
@@ -186,7 +187,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void done(List<NCMBObject> list, NCMBException e) {
         for (NCMBObject object : list) {
-            Account account = new Account ();
+            Account account = new Select().from(Account.class).where(Account.COL_USER_ID + "=?",application.getLoginUser().objectId).executeSingle();
+            if (account == null) account = new Account();
             account.getToAppModel (Account.class,object);
         }
         getFragmentManager().beginTransaction().remove(this).commit();

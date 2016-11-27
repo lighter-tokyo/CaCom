@@ -57,12 +57,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_weight="1"
+            android:layout_margin="@dimen/content_margin"
+            android:textSize="32sp"
             android:layout_height="wrap_content"
             android:id="@+id/category_origin"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            android:textSize="32sp"
             android:layout_weight="1"
             android:id="@+id/category_category">
 

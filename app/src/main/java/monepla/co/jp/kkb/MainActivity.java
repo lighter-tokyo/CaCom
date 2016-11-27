@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.nifty.cloud.mb.core.DoneCallback;
+import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBInstallation;
 import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBQuery;
 
@@ -47,6 +50,7 @@ import monepla.co.jp.kkb.View.OtherView;
 import monepla.co.jp.kkb.View.PassCodeFragment;
 
 import static monepla.co.jp.kkb.Utils.CommonUtils.getQuery;
+import static monepla.co.jp.kkb.Utils.CommonUtils.updateInstallation;
 
 /**
  * メインActivity
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         /** toolbar設定 */
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+//        pushSetting();
         /** アプリケーション取得 */
         application = (KkbApplication)getApplicationContext ();
 
@@ -336,6 +340,8 @@ public class MainActivity extends AppCompatActivity
         LogFnc.LogTraceStart(LogFnc.current());
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getString (title));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         LogFnc.LogTraceEnd(LogFnc.current());
     }
 

@@ -7,6 +7,9 @@ import android.text.Spanned;
 import android.text.TextUtils;
 
 import com.activeandroid.query.Select;
+import com.nifty.cloud.mb.core.FindCallback;
+import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBInstallation;
 import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBQuery;
 
@@ -114,5 +117,27 @@ public class CommonUtils {
             query.whereGreaterThan (AppModel.COL_UPDATED_DATE,updated);
         }
         return query;
+    }
+
+    public static void updateInstallation(final NCMBInstallation installation) {
+
+        //installationクラスを検索するクエリの作成
+        NCMBQuery<NCMBInstallation> query = NCMBInstallation.getQuery();
+
+        //同じRegistration IDをdeviceTokenフィールドに持つ端末情報を検索する
+        query.whereEqualTo("deviceToken", installation.getDeviceToken());
+
+        //データストアの検索を実行
+        query.findInBackground(new FindCallback<NCMBInstallation>() {
+            @Override
+            public void done(List<NCMBInstallation> results, NCMBException e) {
+
+                //検索された端末情報のobjectIdを設定
+                installation.setObjectId(results.get(0).getObjectId());
+
+                //端末情報を更新する
+                installation.saveInBackground();
+            }
+        });
     }
 }

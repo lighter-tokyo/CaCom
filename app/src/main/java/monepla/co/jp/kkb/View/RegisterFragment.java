@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -22,10 +23,12 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import monepla.co.jp.kkb.Common.AppModel;
 import monepla.co.jp.kkb.Common.BaseFragment;
 import monepla.co.jp.kkb.Constract.CommonConst;
 import monepla.co.jp.kkb.Controller.LoginController;
 import monepla.co.jp.kkb.Model.Account;
+import monepla.co.jp.kkb.Model.Cash;
 import monepla.co.jp.kkb.Model.Category;
 import monepla.co.jp.kkb.Model.User;
 import monepla.co.jp.kkb.R;
@@ -182,7 +185,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             NCMBQuery<NCMBObject> query = new NCMBQuery<> (Account.TABLE_NAME);
             query.whereEqualTo (Account.COL_USER_ID,"default");
             query.findInBackground (accountCallBack);
-
+            activityListener.showProgress(R.string.user_register);
         }
     }
 
@@ -190,23 +193,23 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void done(List<NCMBObject> list, NCMBException e) {
             if (e == null) {
-                List<NCMBObject> accountList = new ArrayList<> ();
                 for (NCMBObject account : list) {
                     NCMBObject newAccount = new NCMBObject(Account.TABLE_NAME);
                     newAccount.setObjectId (null);
                     newAccount.put (Account.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    newAccount.put (Account.COL_CREATED_USER, NCMBUser.getCurrentUser ().getObjectId ());
+                    newAccount.put (Account.COL_UPDATED_USER, NCMBUser.getCurrentUser ().getObjectId ());
                     newAccount.put(Account.COL_ACCOUNT_NAME,account.getString(Account.COL_ACCOUNT_NAME));
                     newAccount.put(Account.COL_ACCOUNT_DIV,account.getInt(Account.COL_ACCOUNT_DIV));
                     newAccount.put(Account.COL_DEL_FLG,account.getBoolean(Account.COL_DEL_FLG));
                     try {
                         newAccount.save ();
                     } catch (NCMBException e1) {
-                        accountList.add (account);
                         e1.printStackTrace ();
                     }
                 }
                 NCMBQuery<NCMBObject> query = new NCMBQuery<> (Category.TABLE_NAME);
-                query.whereEqualTo (Category.COL_USER_ID,null);
+                query.whereEqualTo (Category.COL_USER_ID,"default");
                 query.findInBackground (categoryCallBack);
             }
         }
@@ -215,28 +218,33 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void done(List<NCMBObject> list, NCMBException e) {
             if (e == null) {
-                JSONArray jsonAry = new JSONArray ();
                 for (NCMBObject category : list) {
                     NCMBObject newCategory = new NCMBObject(Category.TABLE_NAME);
                     newCategory.put (Category.COL_USER_ID, NCMBUser.getCurrentUser ().getObjectId ());
+                    newCategory.put (Category.COL_CREATED_USER, NCMBUser.getCurrentUser ().getObjectId ());
+                    newCategory.put (Category.COL_UPDATED_USER, NCMBUser.getCurrentUser ().getObjectId ());
                     newCategory.put(Category.COL_CATEGORY_NAME,category.getString(Category.COL_CATEGORY_NAME));
                     newCategory.put(Category.COL_CASH_DIV,category.getInt(Category.COL_CASH_DIV));
                     newCategory.put(Category.COL_DEL_FLG,category.getBoolean(Category.COL_DEL_FLG));
+
                     try {
                         newCategory.save ();
                     } catch (NCMBException e1) {
-                        jsonAry.put (category.getObjectId ());
                         e1.printStackTrace ();
                     }
                 }
-                SharedPreferences preferences = getContext ().getSharedPreferences (CommonConst.PREF_UPDATE,Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit ();
-                editor.putString (Category.COL_OBJECT_ID,jsonAry.toString ());
-                editor.apply();
-                getFragmentManager().beginTransaction().remove(RegisterFragment.this).commit();
-                onButtonPressed(RegisterFragment.this);
+                User user = new User();
+                user.getToAppModel (User.class,NCMBUser.getCurrentUser());
+                application.setLoginUser (user);
+                SharedPreferences prefer = getContext ().getSharedPreferences(CommonConst.PREF_UPDATE, getContext ().MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = prefer.edit ();
+                editor1.putString (Cash.COL_USER_ID,user.objectId);
+                LogFnc.Logging (LogFnc.DEBUG,user.objectId,LogFnc.current ());
+                editor1.apply ();
+                activityListener.closeProgress();
+                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                 activityListener.logout();
-                onDetach();
             }
         }
     };

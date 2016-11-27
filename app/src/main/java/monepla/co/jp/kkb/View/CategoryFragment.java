@@ -15,10 +15,14 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.nifty.cloud.mb.core.DoneCallback;
+import com.nifty.cloud.mb.core.FindCallback;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBObject;
+import com.nifty.cloud.mb.core.NCMBQuery;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +42,7 @@ import monepla.co.jp.kkb.Utils.CommonUtils;
 import monepla.co.jp.kkb.Utils.LogFnc;
 
 import static android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
+import static monepla.co.jp.kkb.Utils.CommonUtils.getQuery;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +54,7 @@ import static android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
  */
 
 public class CategoryFragment extends BaseFragment
-        implements DoneCallback,DatePickerDialog.OnDateSetListener {
+        implements DoneCallback,DatePickerDialog.OnDateSetListener,FindCallback<NCMBObject> {
     /**
      * 区分
      */
@@ -214,16 +219,14 @@ public class CategoryFragment extends BaseFragment
     @Override
     public void done(NCMBException e) {
         LogFnc.LogTraceStart (LogFnc.current ());
-        /** プログレス削除 */
-        activityListener.closeProgress ();
         if (e != null) {
             e.printStackTrace ();
             LogFnc.Logging (LogFnc.ERROR, e.getMessage (), LogFnc.current ());
         } else {
-            /** ホームへ遷移 */
-            FragmentManager fm = getFragmentManager ();
-            FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt (0);
-            fm.popBackStack (entry.getId (), POP_BACK_STACK_INCLUSIVE);
+            NCMBQuery<NCMBObject> query = getQuery (application.getApplicationContext(),Cash.TABLE_NAME);
+            query.whereEqualTo (Cash.COL_USER_ID,application.getLoginUser ().objectId);
+            query.findInBackground(this);
+
 //            getFragmentManager ().beginTransaction ().replace (R.id.fragment_view, HomeListFragment.newInstance ()).commit ();
         }
         LogFnc.LogTraceEnd (LogFnc.current ());
@@ -235,14 +238,20 @@ public class CategoryFragment extends BaseFragment
     @OnClick(R.id.category_button)
     public void registerCash() {
         LogFnc.LogTraceStart (LogFnc.current ());
+        if (TextUtils.isEmpty(appCompatSpinnerOrigin.getText().toString())) {
+            appCompatSpinnerOrigin.setError("エラー");
+            return;
+        }
+        if (TextUtils.isEmpty(appCompatSpinner.getText().toString())) {
+            appCompatSpinner.setError("エラー");
+            return;
+        }
 
         /** サーバーデータ登録 */
         NCMBObject ncmbObject = new NCMBObject (Cash.TABLE_NAME);
-        Cash cash = new Cash ();
         /** 更新の場合検索 */
         if (getArguments ().getString (ARG_PARAM3, null) != null) {
             ncmbObject.setObjectId (getArguments ().getString (ARG_PARAM3, null));
-            cash = new Select ().from (Cash.class).where (Cash.COL_OBJECT_ID + "=?", getArguments ().getString (ARG_PARAM3, null)).executeSingle ();
         }
         ncmbObject.put (Cash.COL_USER_ID, application.getLoginUser ().objectId);
         ncmbObject.put (Cash.COL_AMOUNT, amount);
@@ -252,13 +261,12 @@ public class CategoryFragment extends BaseFragment
             ncmbObject.put (Cash.COL_CASH_DIV, getCategoryDiv.ordinal ());
         }
         ncmbObject.put (Cash.COL_CASH_DATE, new Date (dateTextView.getText ().toString ()));
-        ncmbObject.put (Cash.COL_CATEGORY_ID, accountId);
-        ncmbObject.put (Cash.COL_ORIGIN_ACCOUNT, categoryId);
+        ncmbObject.put (Cash.COL_CATEGORY_ID, categoryId);
+        ncmbObject.put (Cash.COL_ORIGIN_ACCOUNT, accountId);
         ncmbObject.put (Cash.COL_DETAIL, appCompatEditText.getText ().toString ());
         ncmbObject.put (Cash.COL_DEL_FLG, false);
         ncmbObject.put (Cash.COL_CREATED_USER, application.getLoginUser ().objectId);
         ncmbObject.put (Cash.COL_UPDATED_USER, application.getLoginUser ().objectId);
-        cash.getToAppModel (Cash.class, ncmbObject);
 
         activityListener.showProgress (R.string.category);
         ncmbObject.saveInBackground (this);
@@ -363,4 +371,22 @@ public class CategoryFragment extends BaseFragment
             appCompatSpinner.setText (spinnerCommon.name);
         }
     };
+
+    @Override
+    public void done(List<NCMBObject> list, NCMBException e) {
+        for (NCMBObject object : list) {
+            Cash cash = new Select().from(Cash.class).where(Cash.COL_OBJECT_ID + " = ? ", object.getObjectId()).executeSingle();
+            if (cash == null) {
+                /** インサート */
+                cash = new Cash();
+            }
+            cash.getToAppModel(Cash.class, object);
+        }
+        /** ホームへ遷移 */
+        activityListener.closeProgress();
+        FragmentManager fm = getFragmentManager ();
+        FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt (0);
+        fm.popBackStack (entry.getId (), POP_BACK_STACK_INCLUSIVE);
+
+    }
 }

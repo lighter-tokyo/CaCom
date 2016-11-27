@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
+import com.nifty.cloud.mb.core.DoneCallback;
+import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,12 +102,18 @@ public class OtherView extends LinearLayout implements OtherController.OnOtherCl
                 editor.apply ();
             }
 
-            new Delete().from(User.class).execute();
-            new Delete().from(Account.class).execute();
-            new Delete().from(Category.class).execute();
-            new Delete().from(Cash.class).execute();
 
-            activityListener.logout();
+            NCMBUser.logoutInBackground(new DoneCallback() {
+                @Override
+                public void done(NCMBException e) {
+                    new Delete().from(User.class).execute();
+                    new Delete().from(Account.class).execute();
+                    new Delete().from(Category.class).execute();
+                    new Delete().from(Cash.class).execute();
+                    activityListener.logout();
+                }
+            });
+
             return;
         }
 //        if (CommonConst.OtherItems.PASSWORD_FORGET.getItems () == item && TextUtils.isEmpty (application.getLoginUser ().mailAddress)) {
