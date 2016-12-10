@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             frameLayout.setVisibility (View.VISIBLE);
             actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
-            homeListView.postInvalidate();
+            if (homeListView != null) homeListView.postInvalidate();
             super.onBackPressed();
         }
         LogFnc.LogTraceEnd(LogFnc.current(),application);
@@ -304,10 +304,7 @@ public class MainActivity extends AppCompatActivity
                 frameLayout.addView (homeListView);
                 if (textView != null) textView.setText (userList.user_name);
                 getCategory ();
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                }
+
                 actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
                 return;
             }

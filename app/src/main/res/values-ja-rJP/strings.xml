@@ -41,5 +41,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nifty_api_key">851d7db3428e46b661a1d6ffc632708712bc098b198a6d194bd7a8e336c8feda</string>
     <string name="nifty_client_key">dc312e991ba8ba9480dde8b983f39498438748eab942d6cfa055864c0b9265b4</string>
+    <string name="account">口座</string>
+    <string name="account_bank">銀行</string>
+    <string name="account_break_down">口座内訳</string>
+    <string name="account_credit">クレジット</string>
+    <string name="account_monthly">口座月別</string>
+    <string name="account_other">その他</string>
+    <string name="account_securities">証券</string>
+    <string name="account_trust">信託</string>
+    <string name="add_widget">Add widget</string>
+    <string name="appwidget_text">Example</string>
+    <string name="category">カテゴリー</string>
+    <string name="kind">種類</string>
+    <string name="setting">設定</string>
+    <string name="transfer_destination">振替先</string>
+    <string name="transfer_source">振替元</string>
+    <string name="user_register">ユーザ登録</string>
+    <string name="wait">処理中</string>
 
 </resources>

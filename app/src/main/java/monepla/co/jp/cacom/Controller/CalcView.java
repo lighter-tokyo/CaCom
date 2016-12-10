@@ -45,7 +45,7 @@ public class CalcView extends LinearLayout implements View.OnClickListener {
      */
     public CalcView(Context context) {
         super (context);
-        context = (CaComApplication) context.getApplicationContext();
+        context = context.getApplicationContext();
     }
 
     /**
@@ -55,7 +55,7 @@ public class CalcView extends LinearLayout implements View.OnClickListener {
      */
     public CalcView(Context context,AttributeSet attributeSet) {
         super(context,attributeSet);
-        context = (CaComApplication) context.getApplicationContext();
+        context = context.getApplicationContext();
     }
 
     /**

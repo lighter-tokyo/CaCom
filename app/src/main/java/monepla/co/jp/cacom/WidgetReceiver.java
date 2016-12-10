@@ -17,11 +17,9 @@ public class WidgetReceiver extends BroadcastReceiver {
 
         if (intent.getAction().equals("UPDATE_WIDGET")) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.plus_app_widget);
-            AppCompatEditText appCompatEditText;
-            AppCompatEditText appCompatEditTextIn;
-            remoteViews.setTextViewText(R.id.calc_button,context.getText(R.string.account_register));
 // もう一回クリックイベントを登録(毎回登録しないと上手く動かず)
-            remoteViews.setOnClickPendingIntent(R.id.calc_button, PlusAppWidget.clickButton(context));
+
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PlusAppWidget.clickButton(context,R.id.appwidget_text));
 
             PlusAppWidget.pushWidgetUpdate(context.getApplicationContext(), remoteViews);
         }

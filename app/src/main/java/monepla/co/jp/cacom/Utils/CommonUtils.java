@@ -66,7 +66,6 @@ public class CommonUtils {
     }
 
     public static ArrayList<String> getYearMonthList(Date createDate) {
-        LogFnc.LogTraceStart (LogFnc.current ());
         ArrayList<String> list = new ArrayList<> ();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyyMM");
         String created = simpleDateFormat.format (createDate);
@@ -93,7 +92,7 @@ public class CommonUtils {
             }
 
         }
-        LogFnc.LogTraceEnd (LogFnc.current ());
+
         return list;
     }
 

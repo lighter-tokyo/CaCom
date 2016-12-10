@@ -44,7 +44,7 @@
             android:layout_margin="@dimen/content_margin"
             android:padding="4dp"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorGreen"
+            android:background="@color/colorAccent"
             android:text="@string/login_register_button"
             android:layout_gravity="center"/>
     </LinearLayout>

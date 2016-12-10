@@ -6,7 +6,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.RemoteViews;
+
+import monepla.co.jp.cacom.Constract.CommonConst;
 
 /**
  * Implementation of App Widget functionality.
@@ -52,15 +58,16 @@ public class PlusAppWidget extends AppWidgetProvider {
         manager.updateAppWidget(myWidget, remoteViews);
     }
 
-    public static PendingIntent clickButton(Context context) {
-        // クリック回数を増加
+    public static PendingIntent clickButton(Context context,int id) {
+
 
 
         // initiate widget update request
-        Intent intent = new Intent();
-        intent.setAction("UPDATE_WIDGET");
+        Intent intent = new Intent("monepla.co.jp.cacom.WidgetActivity");
+
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
 
 }
 
