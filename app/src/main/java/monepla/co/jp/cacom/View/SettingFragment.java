@@ -83,7 +83,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onDetach() {
         super.onDetach ();
-        activityListener.setToolbarTitle (R.string.other);
+
 //        textView1.getEditableText ().clear ();
 //        textView2.getEditableText ().clear ();
 //        appCompatEditText1.getEditableText ().clear ();
@@ -145,7 +145,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             PackageManager pm = getContext ().getPackageManager();
             try{
                 PackageInfo packageInfo = pm.getPackageInfo(getContext ().getPackageName(), 0);
-                textView1.setText (String.valueOf (packageInfo.versionCode));
+                textView1.setText (String.valueOf (packageInfo.versionName));
                 textView1.setVisibility (View.VISIBLE);
                 textView1.setGravity (Gravity.CENTER);
             }catch(PackageManager.NameNotFoundException e){

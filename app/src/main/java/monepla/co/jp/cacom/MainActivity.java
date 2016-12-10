@@ -156,9 +156,14 @@ public class MainActivity extends AppCompatActivity
         } else {
             LogFnc.Logging(LogFnc.DEBUG,"aaa",LogFnc.current());
             frameLayout.setVisibility (View.VISIBLE);
+            getSupportActionBar ().setHomeButtonEnabled (false);
+            getSupportActionBar ().setDisplayHomeAsUpEnabled (false);
             actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+
             if (homeListView != null) homeListView.postInvalidate();
+            if (accountListView != null) accountListView.invalidateTextPaintAndMeasurements();
+            if (otherView != null) otherView.invalidateTextPaintAndMeasurements();
             super.onBackPressed();
         }
         LogFnc.LogTraceEnd(LogFnc.current(),application);
@@ -210,6 +215,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case android.R.id.home:
                 getSupportFragmentManager ().popBackStack ();
+                LogFnc.Logging(LogFnc.ERROR,"home",LogFnc.current());
                 return true;
         }
         LogFnc.LogTraceEnd(LogFnc.current(),application);
