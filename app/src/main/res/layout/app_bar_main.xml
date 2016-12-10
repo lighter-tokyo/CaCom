@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="monepla.co.jp.kkb.MainActivity">
+    tools:context="monepla.co.jp.cacom.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -28,22 +28,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="monepla.co.jp.kkb.MainActivity"
+        tools:context="monepla.co.jp.cacom.MainActivity"
         tools:showIn="@layout/app_bar_main"
         android:id="@+id/main_view"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="monepla.co.jp.kkb.MainActivity"
+        tools:context="monepla.co.jp.cacom.MainActivity"
         tools:showIn="@layout/app_bar_main"
         android:id="@+id/fragment_view"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="monepla.co.jp.kkb.MainActivity"
+        tools:context="monepla.co.jp.cacom.MainActivity"
         tools:showIn="@layout/app_bar_main"
         android:id="@+id/fragment_no_toolbar"/>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

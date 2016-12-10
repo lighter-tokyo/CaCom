@@ -7,7 +7,7 @@
 
     android:id="@+id/fragment_view"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="monepla.co.jp.kkb.MainActivity"
+    tools:context="monepla.co.jp.cacom.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
 </RelativeLayout>

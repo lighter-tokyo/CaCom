@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "1020505617336",
+    "project_id": "firebase-cacom"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020505617336:android:16f01ef456185547",
+        "android_client_info": {
+          "package_name": "monepla.co.jp.cacom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6gqKceRvMzSuRMkSyjKdRo3Zd-G9t7O0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-88073871-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

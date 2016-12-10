@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="monepla.co.jp.kkb.View.RegisterFragment">
+    tools:context="monepla.co.jp.cacom.View.RegisterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
